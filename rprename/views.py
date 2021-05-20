@@ -4,7 +4,10 @@
 from collections import deque
 from pathlib import Path
 
+from PyQt5.QtCore import QThread
 from PyQt5.QtWidgets import QFileDialog, QWidget
+
+from .rename import Renamer
 from .ui.window import Ui_Window
 
 FILTERS = ';;'.join(
