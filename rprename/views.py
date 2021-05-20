@@ -59,6 +59,7 @@ class Window(QWidget, Ui_Window):
                 self, 'Choose Files to Rename', initDir, filter=FILTERS
             )
             if len(files) > 0:
+                self._updateStateWhenFilesLoaded()
                 fileExtension = filter_[filter_.index('*'): -1]
                 self.extensionLabel.setText(fileExtension)
                 srcDirName = str(Path(files[0]).parent)
@@ -67,6 +68,11 @@ class Window(QWidget, Ui_Window):
                     self._files.append(Path(file))
                     self.srcFileList.addItem(file)
                 self._filesCount = len(self._files)
+
+    def _updateStateWhenFilesLoaded(self):
+        """ Updates the GUI's state when te lists of Files to Rename contains one or more files. """
+        self.prefixEdit.setEnabled(True)
+        self.prefixEdit.setFocus(True)
 
     def renameFiles(self):
         self._runRenamerThread()
