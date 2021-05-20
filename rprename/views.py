@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 
 """ This module provides the RP Rename main window. """
-from PyQt5.QtWidgets import QWidget
+from collections import deque
+from pathlib import Path
+
+from PyQt5.QtWidgets import QFileDialog, QWidget
 from .ui.window import Ui_Window
 
 
