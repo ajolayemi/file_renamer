@@ -26,9 +26,13 @@ class Window(QWidget, Ui_Window):
         self._files = deque()
         self._filesCount = len(self._files)
         self._setupUI()
+        self._connectSignalsSlots()
 
     def _setupUI(self):
         self.setupUi(self)
+
+    def _connectSignalsSlots(self):
+        self.loadFilesButton.clicked.connect(self.loadFiles)
 
     def loadFiles(self):
         self.dstFileList.clear()
