@@ -7,6 +7,17 @@ from pathlib import Path
 from PyQt5.QtWidgets import QFileDialog, QWidget
 from .ui.window import Ui_Window
 
+FILTERS = ';;'.join(
+    (
+        'PNG Files (*.png)',
+        'JPEG Files (*.jpeg)',
+        'JPG Files (*.jpg)',
+        'GIF Files (*.gif)',
+        'Text Files (*.txt)',
+        "Python Files (*.py)",
+    )
+)
+
 
 class Window(QWidget, Ui_Window):
 
