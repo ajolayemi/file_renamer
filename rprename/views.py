@@ -59,6 +59,26 @@ class Window(QWidget, Ui_Window):
     def renameFiles(self):
         self._runRenamerThread()
 
+    def _runRenamerThread(self):
+        prefix = self.prefixEdit.text()
+        self._thread = QThread()
+        self._renamer = Renamer(
+            files=tuple(self._files),
+            prefix=prefix
+        )
+        self._renamer.moveToThread(self._thread)
+        # Rename - connecting to renamedFile signal
+        self._thread.started.connect(self._renamer.renamedFile)
+        # Update state
+        self._renamer.renamedFile.connect(self._updateStateWhenFileRenamed)
+        # Clean up
+        self._renamer.finished.connect(self._thread.quit)
+        self._renamer.finished.connect(self._renamer.deleteLater)
+        self._thread.finished.connect(self._thread.deleteLater)
+
+        # Run the thread
+        self._thread.start()
+
     def _updateStateWhenFileRenamed(self, newFile):
         """ When a file is renamed, this method removes the file from the list
         of files to be renamed. It then updates the list of Files to Rename and also the
