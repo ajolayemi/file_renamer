@@ -9,7 +9,7 @@ from PyQt5.QtCore import QObject, pyqtSignal
 class Renamer(QObject):
     # Custom signals
     progressed = pyqtSignal(int)
-    renamedFile = pyqtSignal(Path)
+    renamedFiles = pyqtSignal(Path)
     finished = pyqtSignal()
 
     def __init__(self, files, prefix):
@@ -25,6 +25,6 @@ class Renamer(QObject):
             file.rename(newFile)
             time.sleep(0.1)  # This slows down the renaming process
             self.progressed.emit(fileNumber)
-            self.renamedFile.emit(newFile)
+            self.renamedFiles.emit(newFile)
         self.progressed.emit(0)
         self.finished.emit()

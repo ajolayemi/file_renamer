@@ -68,10 +68,10 @@ class Window(QWidget, Ui_Window):
             prefix=prefix
         )
         self._renamer.moveToThread(self._thread)
-        # Rename - connecting to renamedFile signal
-        self._thread.started.connect(self._renamer.renamedFile)
+        # Rename - connecting to renamedFiles signal
+        self._thread.started.connect(self._renamer.renameFiles)
         # Update state
-        self._renamer.renamedFile.connect(self._updateStateWhenFileRenamed)
+        self._renamer.renamedFiles.connect(self._updateStateWhenFileRenamed)
         # Clean up
         self._renamer.finished.connect(self._thread.quit)
         self._renamer.finished.connect(self._renamer.deleteLater)
