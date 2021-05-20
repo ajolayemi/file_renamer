@@ -55,3 +55,11 @@ class Window(QWidget, Ui_Window):
                     self._files.append(Path(file))
                     self.srcFileList.addItem(file)
                 self._filesCount = len(self._files)
+
+    def _updateStateWhenFileRenamed(self, newFile):
+        """ When a file is renamed, this method removes the file from the list
+        of files to be renamed. It then updates the list of Files to Rename and also the
+        list of Renamed Files on the application's GUI. """
+        self._files.popleft()
+        self.srcFileList.takeItem(0)
+        self.dstFileList.addItem(str(newFile))
