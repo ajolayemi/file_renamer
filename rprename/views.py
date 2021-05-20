@@ -23,6 +23,8 @@ class Window(QWidget, Ui_Window):
 
     def __init__(self):
         super(Window, self).__init__()
+        self._files = deque()
+        self._filesCount = len(self._files)
         self._setupUI()
 
     def _setupUI(self):
