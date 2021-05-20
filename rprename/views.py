@@ -33,6 +33,17 @@ class Window(QWidget, Ui_Window):
 
     def _setupUI(self):
         self.setupUi(self)
+        self._updateStateWhenNoFiles()
+
+    def _updateStateWhenNoFiles(self):
+        """ This updates the GUI's state when the application is running
+        and the list of Files to Rename is empty. """
+        self._filesCount = len(self._files)
+        self.loadFilesButton.setEnabled(True)
+        self.loadFilesButton.setFocus(True)
+        self.renameFilesButton.setEnabled(False)
+        self.prefixEdit.clear()
+        self.prefixEdit.setEnabled(False)
 
     def _connectSignalsSlots(self):
         self.loadFilesButton.clicked.connect(self.loadFiles)
@@ -73,6 +84,7 @@ class Window(QWidget, Ui_Window):
         # Update state
         self._renamer.renamedFiles.connect(self._updateStateWhenFileRenamed)
         self._renamer.progressed.connect(self._updateProgressBar)
+        self._renamer.finished.connect(self._updateStateWhenNoFiles)
         # Clean up
         self._renamer.finished.connect(self._thread.quit)
         self._renamer.finished.connect(self._renamer.deleteLater)
