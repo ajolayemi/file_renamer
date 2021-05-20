@@ -36,6 +36,7 @@ class Window(QWidget, Ui_Window):
 
     def _connectSignalsSlots(self):
         self.loadFilesButton.clicked.connect(self.loadFiles)
+        self.renameFilesButton.clicked.connect(self.renameFiles)
 
     def loadFiles(self):
         self.dstFileList.clear()
